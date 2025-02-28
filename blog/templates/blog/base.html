@@ -5,28 +5,42 @@
     <head>
         <title>Django blog</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext">
         <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
         <link rel="stylesheet" href="{% static 'css/blog.css' %}?{% now "U" %}">
     </head>
     <body>
-        <header class="page-header">
-            <div class="container">
-                {% if user.is_authenticated %}
-                    <a href="{% url 'post_new' %}" class="top-menu">
-                        {% include './icons/file-earmark-plus.svg' %}
-                    </a>
-                {% endif %}
-                <h1><a href="/">Django Blog</a></h1>
-            </div>
-        </header>
-        <main class="content container">
+        <div class="page-header">
+            {% if user.is_authenticated %}
+                <a href="{% url 'post_new' %}" class="top-menu"><i class="fas fa-plus" style="font-size: 1.3rem;"></i></a>
+                <a href="{% url 'post_draft_list' %}" class="top-menu"><i class="fas fa-edit" style="font-size: 1.3rem;"></i></a>
+                <p class="top-menu">
+                    Hello {{ user.username }}
+                    <small>
+                        (<a href="#" onclick="document.getElementById('logout-form').submit();">Log out</a>)
+                    </small>
+                </p>
+                
+                <!-- Logout form -->
+                <form id="logout-form" action="{% url 'logout' %}" method="POST" style="display: none;">
+                    {% csrf_token %}
+                </form>
+                
+                
+                
+            {% else %}
+                <a href="{% url 'login' %}" class="top-menu"><i class="fas fa-lock"></i></a>
+            {% endif %}
+            <h1><a href="/">Django Girls Blog</a></h1>
+        </div>
+        <div class="content container">
             <div class="row">
-                <div class="col">
-                    {% block content %}
-                    {% endblock %}
+                <div class="col-md-8">
+                {% block content %}
+                {% endblock %}
                 </div>
             </div>
-        </main>
+        </div>
     </body>
 </html>

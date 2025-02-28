@@ -59,7 +59,6 @@ h4 {
 
 .btn-secondary,
 .btn-secondary:visited {
-    margin-left: 10px;
     color: #2798c2;
     background: none;
     border-color: #2798c2;
@@ -68,4 +67,8 @@ h4 {
 .btn-secondary:hover {
     color: #FFFFFF;
     background-color: #2798c2;
+}
+
+.comment {
+    margin: 20px 0px 20px 20px;
 }
